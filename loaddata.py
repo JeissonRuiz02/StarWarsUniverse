@@ -5,6 +5,12 @@ from datetime import datetime
 
 
 def load_characters():
+    """Fetches and stores characters from the SWAPI into the local database.
+
+    This function iterates through all paginated responses from the SWAPI
+    people endpoint and creates new Character entries in the database
+    if they don't already exist.
+    """
     print("Loading characters...")
     url = "https://www.swapi.tech/api/people"
     while url:
@@ -15,8 +21,13 @@ def load_characters():
         url = data["next"]
 
 
-
 def load_planets():
+    """Fetches and stores planets from the SWAPI into the local database.
+
+    This function iterates through all paginated responses from the SWAPI
+    planets endpoint, fetches detailed planet data, and creates new Planet
+    entries if they don't already exist.
+    """
     print("Loading planets...")
     url = "https://www.swapi.tech/api/planets"
     while url:
@@ -25,14 +36,20 @@ def load_planets():
         for item in data["results"]:
             detail = requests.get(item["url"]).json()
             props = detail["result"]["properties"]
-            Planet.objects.get_or_create(name=props["name"], climate=props.get("climate", "unknown"))
+            Planet.objects.get_or_create(
+                name=props["name"],
+                climate=props.get("climate", "unknown")
+            )
         url = data["next"]
 
 
-
-
-
 def load_movies():
+    """Fetches and stores movies from the SWAPI into the local database.
+
+    This function retrieves all films, creates Movie objects in the database,
+    and associates them with related planets and characters using their IDs.
+    If a planet or character does not exist locally, it is skipped.
+    """
     print("Loading movies...")
     url = "https://www.swapi.tech/api/films"
     res = requests.get(url).json()
