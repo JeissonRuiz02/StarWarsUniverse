@@ -68,6 +68,10 @@ Una vez iniciado el servidor, accede a:
 http://127.0.0.1:8000/graphql/
 
 ---
+## Simulacion de PR:
+![image](https://github.com/user-attachments/assets/2dcf7669-8419-4eee-9eef-067b733e9c8a)
+
+---
 
 ## 🧪 Ejemplos de Queries
 
