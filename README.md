@@ -40,7 +40,7 @@ pip install -r requirements.txt
 python manage.py migrate
 
 # Cargar datos iniciales desde la API SWAPI
-python manage.py load_initial_data
+python manage.py loaddata
 
 # Ejecutar servidor
 python manage.py runserver
