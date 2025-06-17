@@ -62,7 +62,7 @@ http://127.0.0.1:8000/graphql/
 
 ## 🧪 Ejemplos de Queries
 
-### Obtener todos los personajes
+### Obtener todos los personajes con las peliculas donde aparecen y sus respectivos planetas
 
 ```graphql
 query {
@@ -71,10 +71,16 @@ query {
     name
     movies {
       title
+      openingCrawl
+      planets{
+        name
+      }
     }
   }
 }
 ```
+![image](https://github.com/user-attachments/assets/3a1ce5af-954a-4ca4-9800-971f1f530f4c)
+
 
 ### Filtrar personajes por nombre
 
@@ -86,6 +92,8 @@ query {
   }
 }
 ```
+![image](https://github.com/user-attachments/assets/ac56bc56-5c13-4711-86d2-2afec3e88dc1)
+
 
 ### Detalles de una película
 
@@ -101,6 +109,8 @@ query {
   }
 }
 ```
+![image](https://github.com/user-attachments/assets/c374d7d7-c9d0-4c4f-b23d-ba51ab4692b5)
+
 
 ## ✍️ Mutaciones
 
@@ -116,6 +126,8 @@ mutation {
   }
 }
 ```
+![image](https://github.com/user-attachments/assets/7a94e036-9379-4b65-8f0f-d51f135e6077)
+
 
 ### Crear una pelicula
 
@@ -137,6 +149,7 @@ mutation {
 }
 
 ```
+![image](https://github.com/user-attachments/assets/d14ab8b5-fbba-48a8-84a0-a6292e4e35b8)
 
 ### Crear un planeta
 
@@ -151,6 +164,7 @@ mutation {
 }
 
 ```
+![image](https://github.com/user-attachments/assets/6b20059f-58c1-49f3-97bb-7001f29ad108)
 
 
 ## 🧪 Pruebas
