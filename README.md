@@ -17,24 +17,8 @@
 ---
 
 ## 📁 Estructura del Proyecto
-StarWarsUniverse/
-├── starwars/ # App principal con modelos, schema, tests y carga inicial
-│ ├── models.py # Modelos de Planet, Movie y Character
-│ ├── schema/
-│ │ ├── queries.py # Consultas GraphQL definidas (Query)
-│ │ ├── mutations.py # Mutaciones GraphQL para crear registros
-│ │ └── schema.py # Esquema principal de GraphQL
-│ ├── management/
-│ │ └── commands/
-│ │ └── load_initial_data.py # Script para cargar datos desde JSON o API externa
-│ └── tests/
-│ └── test_graphql.py # Pruebas unitarias para queries y mutaciones
-├── starwars_api/ # Configuración del proyecto Django
-│ ├── settings.py # Configuraciones principales de Django
-│ └── urls.py # Rutas incluyendo endpoint /graphql/
-├── db.sqlite3 # Base de datos local SQLite
-├── requirements.txt # Dependencias del proyecto
-└── README.md # Documentación principal del proyecto
+![image](https://github.com/user-attachments/assets/1c05a0ae-68c7-4e71-b9c6-fe9a4533d60a)
+
 
 ---
 
