@@ -8,6 +8,7 @@
 
 - Python 3.11+
 - Django 5.2
+- Relay (para conexion con front segun lo solicitado)
 - GraphQL con [Graphene-Django](https://docs.graphene-python.org/projects/django/en/latest/)
 - SQLite (Por temas practicos y de ejecucion)
 - Pytest + pytest-django
