@@ -1,5 +1,7 @@
 from graphene_django.types import DjangoObjectType
 from starwars.models import Character, Movie, Planet
+from graphene import relay
+
 
 class CharacterType(DjangoObjectType):
     """GraphQL type for the Character model.
@@ -9,7 +11,11 @@ class CharacterType(DjangoObjectType):
 
     class Meta:
         model = Character
+        interfaces = (relay.Node,)
         fields = "__all__"
+        filter_fields = {
+            'name': ['exact', 'icontains', 'istartswith']
+        }
 
 
 class MovieType(DjangoObjectType):
@@ -20,7 +26,11 @@ class MovieType(DjangoObjectType):
 
     class Meta:
         model = Movie
+        interfaces = (relay.Node,)
         fields = "__all__"
+        filter_fields = {
+            "title": ["exact", "icontains"]
+        }
 
 
 class PlanetType(DjangoObjectType):
@@ -31,4 +41,6 @@ class PlanetType(DjangoObjectType):
 
     class Meta:
         model = Planet
+        interfaces = (relay.Node,)
         fields = "__all__"
+        filter_fields = ['name']

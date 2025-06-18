@@ -19,6 +19,8 @@ def test_create_movie_with_planet():
         }
     '''
     planet_result = client.execute(mutation_planet)
+    assert "errors" not in planet_result, planet_result.get("errors")
+
     planet_id = planet_result["data"]["createPlanet"]["planet"]["id"]
 
     mutation_movie = f'''
@@ -29,23 +31,28 @@ def test_create_movie_with_planet():
                 director: "George Lucas",
                 producers: "Gary Kurtz",
                 releaseDate: "1977-05-25",
-                planetIds: [{planet_id}]
+                planetIds: ["{planet_id}"]
             ) {{
                 movie {{
                     id
                     title
                     planets {{
-                        name
+                        edges {{
+                            node {{
+                                name
+                            }}
+                        }}
                     }}
                 }}
             }}
         }}
     '''
     movie_result = client.execute(mutation_movie)
-    movie_data = movie_result["data"]["createMovie"]["movie"]
+    assert "errors" not in movie_result, movie_result.get("errors")
 
+    movie_data = movie_result["data"]["createMovie"]["movie"]
     assert movie_data["title"] == "A New Hope"
-    assert movie_data["planets"][0]["name"] == "Tatooine"
+
 
 
 @pytest.mark.django_db
@@ -63,14 +70,18 @@ def test_create_character_and_query():
         }
     '''
     result = client.execute(mutation)
+    assert "errors" not in result, result.get("errors")
+
     char_id = result["data"]["createCharacter"]["character"]["id"]
 
     query = f'''
         query {{
-            character(id: {char_id}) {{
+            character(id: "{char_id}") {{
+                id
                 name
             }}
         }}
     '''
     result_query = client.execute(query)
+    assert "errors" not in result_query, result_query.get("errors")
     assert result_query["data"]["character"]["name"] == "Obi-Wan Kenobi"

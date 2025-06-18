@@ -25,13 +25,20 @@ def test_create_character():
 def test_query_all_characters():
     Character.objects.create(name="Leia Organa")
     client = Client(schema)
+
     query = '''
         query {
-            allCharacters {
-                name
+            allCharacters(first: 5) {
+                edges {
+                    node {
+                        name
+                    }
+                }
             }
         }
     '''
     result = client.execute(query)
-    names = [char["name"] for char in result["data"]["allCharacters"]]
+    assert "errors" not in result, result.get("errors")
+
+    names = [edge["node"]["name"] for edge in result["data"]["allCharacters"]["edges"]]
     assert "Leia Organa" in names

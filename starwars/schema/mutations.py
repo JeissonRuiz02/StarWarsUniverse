@@ -2,6 +2,7 @@ import graphene
 from datetime import datetime
 from starwars.models import Character, Movie, Planet
 from starwars.schema.types import CharacterType, MovieType, PlanetType
+from graphql_relay import from_global_id
 
 
 class CreateCharacter(graphene.Mutation):
@@ -88,7 +89,11 @@ class CreateMovie(graphene.Mutation):
             producers=producers,
             release_date=datetime.strptime(release_date, "%Y-%m-%d").date()
         )
-        movie.planets.set(Planet.objects.filter(id__in=planet_ids))
+
+        # Decode global Relay IDs to primary keys
+        decoded_ids = [from_global_id(pid)[1] for pid in planet_ids]
+        movie.planets.set(Planet.objects.filter(pk__in=decoded_ids))
+
         return CreateMovie(movie=movie)
 
 
