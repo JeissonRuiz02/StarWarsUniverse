@@ -66,50 +66,75 @@ http://127.0.0.1:8000/graphql/
 
 ```graphql
 query {
-  allCharacters {
-    id
-    name
-    movies {
-      title
-      openingCrawl
-      planets{
+  allCharacters(first: 10) {
+    edges {
+      node {
+        id
         name
+        movies {
+          edges {
+            node {
+              title
+              openingCrawl
+              planets {
+                edges {
+                  node {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
 }
+
 ```
-![image](https://github.com/user-attachments/assets/3a1ce5af-954a-4ca4-9800-971f1f530f4c)
+![image](https://github.com/user-attachments/assets/6f8f73ee-ffb4-4ead-bf39-6576d70ee6cb)
+
 
 
 ### Filtrar personajes por nombre
 
 ```graphql
 query {
-  allCharacters(name: "Luke") {
-    id
-    name
-  }
-}
-```
-![image](https://github.com/user-attachments/assets/ac56bc56-5c13-4711-86d2-2afec3e88dc1)
-
-
-### Detalles de una película
-
-```graphql
-query {
-  movie(id: 1) {
-    title
-    director
-    openingCrawl
-    planets {
-      name
+  allCharacters(name_Icontains: "Luke", first: 5) {
+    edges {
+      node {
+        id
+        name
+      }
     }
   }
 }
 ```
-![image](https://github.com/user-attachments/assets/c374d7d7-c9d0-4c4f-b23d-ba51ab4692b5)
+![image](https://github.com/user-attachments/assets/fbb6bba5-6be6-4c0b-89fd-724dde9a7a83)
+
+
+### Detalles de una película por ID GLOBAL
+
+```graphql
+query {
+  movie(id: "TW92aWVUeXBlOjE=") {
+    title
+    director
+    openingCrawl
+    planets {
+      edges {
+        node {
+          name
+        }
+      }
+    }
+  }
+}
+
+```
+![image](https://github.com/user-attachments/assets/7afcf8a2-b6b0-437f-b926-ab00564b8fca)
+
+
 
 
 ## ✍️ Mutaciones
@@ -118,13 +143,14 @@ query {
 
 ```graphql
 mutation {
-  createCharacter(name: "Han Solo") {
+  createCharacter(name: "Han Acompanado") {
     character {
       id
       name
     }
   }
 }
+
 ```
 ![image](https://github.com/user-attachments/assets/7a94e036-9379-4b65-8f0f-d51f135e6077)
 
@@ -173,6 +199,8 @@ Ejecutar pruebas unitarias:
 ```bash
  pytest
 ```
+![image](https://github.com/user-attachments/assets/b383393f-7258-4bc4-bada-dc0a05e7f449)
+
 Los tests se encuentran en `starwars/tests/test_graphql.py` y validan mutaciones y queries del esquema.
 
 
