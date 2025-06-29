@@ -41,7 +41,17 @@ pip install -r requirements.txt
 python manage.py migrate
 
 # Cargar datos iniciales desde la API SWAPI
-python manage.py loaddata
+# Abrir shell en el proyecto
+python manage.py shell
+
+# Cargar los metodos de poblacion
+from starwars.loaddata import load_characters, load_planets, load_movies
+
+# Ejecutar los metodos de poblacion
+load_characters()
+load_planets()
+load_movies()
+
 
 # Ejecutar servidor
 python manage.py runserver
